@@ -13,3 +13,5 @@ torch_compile_debug
 fusion_result.json
 .python-version
 uv.lock
+.idea
+.vscode

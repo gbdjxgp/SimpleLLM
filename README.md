@@ -6,8 +6,11 @@ git clone https://github.com/gbdjxgp/SimpleLLM.git
 cd SimpleLLM
 pip install uv
 # or install torch with cuda
+uv pip install torch==xxx+cuda -i xxxx
+# or install torch with npu
 uv pip install torch_npu
-uv sync
+# or install torch with cpu
+uv pip install torch
 # then download the pretrained model use modelscope/huggingface
 modelscope download xxx
 # next, install simplellm package or run your python code in this directory.

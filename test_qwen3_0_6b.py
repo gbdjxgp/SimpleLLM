@@ -1,26 +1,30 @@
 import torch
 
-from simplellm.loader import init_model, load_model
+from simplellm.loader import Qwen3ModelLoader
 from simplellm.generate import infer
-
-USE_REASONING_MODEL = True
-USE_INSTRUCT_MODEL = False
+from simplellm.tokenizer import Qwen3Tokenizer
 
 def test_1(
         prompt = "Give me a short introduction to large language models.",
         max_tokens = 1024
     ):
-
-
-    CHOOSE_MODEL = "0.6B"
-    model, QWEN3_CONFIG, device = init_model(CHOOSE_MODEL)
-    model, tokenizer = load_model(model, device, QWEN3_CONFIG, USE_REASONING_MODEL, USE_INSTRUCT_MODEL, CHOOSE_MODEL)
-
+    torch.manual_seed(123)
+    model_path = rf"C:\Users\13766\.cache\modelscope\hub\models\Qwen\Qwen3-0___6B"
+    qwen3_loader = Qwen3ModelLoader(model_path=model_path)
+    device = qwen3_loader.device
+    model = qwen3_loader.model
+    tokenizer = Qwen3Tokenizer(
+        tokenizer_file_path=model_path+"/tokenizer.json",
+        repo_id=f"Qwen/Qwen3-0.6B-Base",
+        apply_chat_template=True,
+        add_generation_prompt=True,
+        add_thinking=True
+    )
     input_token_ids = tokenizer.encode(prompt)
     text = tokenizer.decode(input_token_ids)
 
-    print(f"\nprompt: \"{prompt}\"\n")
-    print(f"\ntext: \"{text}\"\n")
+    print(f"prompt: \"{prompt}\"")
+    print(f"text: \"{text}\"")
 
     input_token_ids_tensor = torch.tensor(input_token_ids, device=device).unsqueeze(0)
     response, gen_tokens, elapsed_time = infer(model, tokenizer, input_token_ids_tensor, max_new_tokens=max_tokens)

@@ -1,7 +1,7 @@
 [project]
 name = "simplellm"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Simple Large Language Model using Pytorch."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -9,7 +9,6 @@ dependencies = [
     "attrs",
     "decorator",
     "huggingface-hub",
-    "numpy<2.0",
     "packaging",
     "psutil",
     "pyyaml",
@@ -17,15 +16,22 @@ dependencies = [
     "scipy",
     "setuptools",
     "tokenizers",
-    "torch==2.6.0",
+    "torch",
     "transformers",
+]
+[project.optional-dependencies]
+npu = [
+  "simplellm[runtime_common]",
+  "torch==2.6.0",
+  "torch_npu==2.6.0",
+  "numpy<2.0",
 ]
 
 [[tool.uv.index]]
 name = "gbdj"
 url = "https://pip.gbdj.cc/"
 [[tool.uv.index]]
-name = "mirrors"
+name = "tsinghua_mirrors"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 [[tool.uv.index]]
 name = "huaweicloud"
