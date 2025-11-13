@@ -1,5 +1,5 @@
 [project]
-name = "torch-backend"
+name = "simplellm"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -20,3 +20,13 @@ dependencies = [
     "torch==2.6.0",
     "transformers",
 ]
+
+[[tool.uv.index]]
+name = "gbdj"
+url = "https://pip.gbdj.cc/"
+[[tool.uv.index]]
+name = "mirrors"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+[[tool.uv.index]]
+name = "huaweicloud"
+url = "https://mirrors.huaweicloud.com/ascend/repos/pypi/"

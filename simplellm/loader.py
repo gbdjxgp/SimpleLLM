@@ -6,12 +6,12 @@ from pathlib import Path
 from safetensors.torch import load_file
 from huggingface_hub import hf_hub_download, snapshot_download
 
-from config import get_model_config
-from tokenizer import Qwen3Tokenizer
+from .config import get_model_config
+from .tokenizer import Qwen3Tokenizer
 
+from .model import Qwen3Model
 
 def init_model(choose_model ="0.6B"):
-    from model import Qwen3Model
     config = get_model_config(choose_model)
 
     torch.manual_seed(123)
@@ -35,8 +35,8 @@ def init_model(choose_model ="0.6B"):
         device = torch.device("cuda")
     elif torch.backends.mps.is_available():
         device = torch.device("mps")
-    elif torch.backends.npu.is_available():
-        device = torch.device("npu:0") # only device for now.
+    elif torch.npu.is_available():
+        device = torch.device("npu:0")
     else:
         device = torch.device("cpu")
     model.to(device)
@@ -86,12 +86,7 @@ def load_model(
     local_dir = Path(repo_id).parts[-1]
 
     if CHOOSE_MODEL == "0.6B":
-        # weights_file = hf_hub_download(
-        #     repo_id=repo_id,
-        #     filename="model.safetensors",
-        #     local_dir=local_dir,
-        # )
-        weights_file = load_file("Qwen3-0.6B/model.safetensors")
+        weights_file = "Qwen3-0.6B/model.safetensors"
         weights_dict = load_file(weights_file)
         print(f"+weights_file: {weights_file}")
         # print(f"+weights_dict: {weights_dict}")

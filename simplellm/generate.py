@@ -1,7 +1,7 @@
 import torch
 import time
 
-from kvcache import KVCache
+from .kvcache import KVCache
 
 def generate_text_basic_stream(model, token_ids, max_new_tokens, eos_token_id=None):
     model.eval()

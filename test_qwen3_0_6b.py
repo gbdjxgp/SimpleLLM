@@ -1,7 +1,7 @@
 import torch
 
-from llm.loader import init_model, load_model
-from llm.generate import infer
+from simplellm.loader import init_model, load_model
+from simplellm.generate import infer
 
 USE_REASONING_MODEL = True
 USE_INSTRUCT_MODEL = False
